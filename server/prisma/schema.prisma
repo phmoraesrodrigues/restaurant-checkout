@@ -9,3 +9,25 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model Product {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  imageId   String
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  category  Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String @db.ObjectId
+}
+
+model Category {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  imageId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  products  Product[]
+}
