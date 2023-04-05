@@ -15,7 +15,7 @@ const Header = () => (
       <Toolbar>
         <RestaurantIcon />
         <Typography variant="h6" color="inherit" noWrap sx={{ ml: 2, mr: 5 }}>
-          Restaurant Checkout
+          Reacstaurant
         </Typography>
         <nav>
           <Link
