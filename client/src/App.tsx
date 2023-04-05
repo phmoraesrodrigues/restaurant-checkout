@@ -1,5 +1,15 @@
+import CategoryList from "./components/layout/CategoryList";
+import Header from "./components/layout/Header";
+import ProductList from "./components/layout/ProductList";
+
 const App = () => {
-  return <h1>Restaurant Checkout</h1>;
+  return (
+    <>
+      <Header />
+      <CategoryList />
+      <ProductList />
+    </>
+  );
 };
 
 export default App;
