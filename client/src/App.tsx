@@ -1,18 +1,20 @@
-import CssBaseline from "@mui/material/CssBaseline";
-import GlobalStyles from "@mui/material/GlobalStyles";
-import Header from "./components/layout/Header";
-import ProductContainer from "./components/layout/ProductContainer";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import Checkout from "./components/pages/Checkout";
+import NoPage from "./components/pages/NoPage";
+import Products from "./components/pages/Products";
 
 const App = () => {
   return (
-    <>
-      <GlobalStyles
-        styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
-      />
-      <CssBaseline />
-      <Header />
-      <ProductContainer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Products />} />
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 

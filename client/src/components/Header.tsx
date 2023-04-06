@@ -1,8 +1,10 @@
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import AppBar from "@mui/material/AppBar";
-import Link from "@mui/material/Link";
+import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+
+import { Link } from "react-router-dom";
 
 const Header = () => (
   <div>
@@ -14,26 +16,21 @@ const Header = () => (
     >
       <Toolbar>
         <RestaurantIcon />
-        <Typography variant="h6" color="inherit" noWrap sx={{ ml: 2, mr: 5 }}>
+        <Typography variant="h6" color="inherit" noWrap sx={{ ml: 1, mr: 3 }}>
           Reacstaurant
         </Typography>
         <nav>
-          <Link
-            variant="button"
-            color="text.primary"
-            href="/"
-            sx={{ my: 1, mx: 1.5 }}
-          >
+          <Button to="/" color="primary" component={Link} sx={{ mx: 1 }}>
             Products
-          </Link>
-          <Link
-            variant="button"
-            color="text.primary"
-            href="/checkout"
-            sx={{ my: 1, mx: 1.5 }}
+          </Button>
+          <Button
+            to="/checkout"
+            color="primary"
+            component={Link}
+            sx={{ mx: 1 }}
           >
-            Cart
-          </Link>
+            Checkout
+          </Button>
         </nav>
       </Toolbar>
     </AppBar>
