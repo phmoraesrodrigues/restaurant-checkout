@@ -3,13 +3,17 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 
 import useFetchCategories from "../../hooks/useFetchCategories";
+import useFetchProducts from "../../hooks/useFetchProducts";
 import Category from "../Category";
 import ProductGrid from "../ProductGrid";
 
 const Products = () => {
-  const { isLoading, isError, data } = useFetchCategories();
+  const { isLoading: isLoadingCategories, data: dataCategories } =
+    useFetchCategories();
+  const { isLoading: isLoadingProducts, data: dataProducts } =
+    useFetchProducts();
 
-  if (isLoading) {
+  if (isLoadingCategories || isLoadingProducts) {
     return (
       <Box
         sx={{
@@ -25,7 +29,7 @@ const Products = () => {
     );
   }
 
-  if (!data?.length || isError) {
+  if (!dataCategories?.length || !dataProducts?.length) {
     return (
       <Typography variant="h5">
         Sorry, but we don't have any food for you right now!
@@ -36,10 +40,14 @@ const Products = () => {
   return (
     <>
       <Typography variant="h4">Please, make your order!</Typography>
-      {data.map(({ id, name, imageId }) => (
-        <Box sx={{ mt: 6 }}>
-          <Category key={id} name={name} imageId={imageId} />
-          <ProductGrid />
+      {dataCategories.map(({ id, name, imageId }) => (
+        <Box key={id} sx={{ mt: 6 }}>
+          <Category name={name} imageId={imageId} />
+          <ProductGrid
+            products={dataProducts.filter(
+              ({ categoryId }) => categoryId === id
+            )}
+          />
         </Box>
       ))}
     </>

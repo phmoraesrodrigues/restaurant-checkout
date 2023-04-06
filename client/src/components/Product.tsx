@@ -6,22 +6,31 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
+import { ProductModel } from "../common/model";
 import { formatCurrency } from "../lib/currency";
 
-const Product = () => {
+interface ProductProps {
+  product: ProductModel;
+}
+
+const Product = (props: ProductProps) => {
+  const {
+    product: { name, imageId, price },
+  } = props;
+
   return (
     <Card>
       <CardMedia
-        sx={{ height: 140 }}
-        image="/images/3e1bd1342800f7.jpg"
-        title="green iguana"
+        sx={{ height: 250 }}
+        image={`/images/${imageId}.jpg`}
+        title={name}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          <strong>Price:</strong> {formatCurrency(100)}
+          <strong>Price:</strong> {formatCurrency(price)}
         </Typography>
       </CardContent>
       <CardActions>
