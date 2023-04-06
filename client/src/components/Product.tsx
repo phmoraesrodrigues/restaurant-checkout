@@ -5,8 +5,10 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { useContext } from "react";
 
 import { ProductModel } from "../common/model";
+import { CartContext, CartContextType } from "../contexts/CartContext";
 import { formatCurrency } from "../lib/currency";
 
 interface ProductProps {
@@ -14,9 +16,10 @@ interface ProductProps {
 }
 
 const Product = (props: ProductProps) => {
-  const {
-    product: { name, imageId, price },
-  } = props;
+  const { product } = props;
+  const { name, imageId, price } = product;
+
+  const { addToCart } = useContext(CartContext) as CartContextType;
 
   return (
     <Card>
@@ -34,7 +37,11 @@ const Product = (props: ProductProps) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" startIcon={<AddShoppingCartIcon />}>
+        <Button
+          onClick={() => addToCart(product)}
+          size="small"
+          startIcon={<AddShoppingCartIcon />}
+        >
           Add to Cart
         </Button>
       </CardActions>
