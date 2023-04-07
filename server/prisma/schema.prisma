@@ -14,8 +14,6 @@ model Product {
   price      Float
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String @db.ObjectId
-  order      Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  orderId    String @db.ObjectId
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   deletedAt  DateTime?
@@ -32,14 +30,14 @@ model Category {
 }
 
 model Order {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  products   Product[]
-  total      Float
-  cardNumber String
-  cardExpire String
-  cardCvv    String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  deletedAt  DateTime?
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  productsIds String[] @db.ObjectId
+  total       Float
+  cardNumber  String
+  cardExpire  String
+  cardCvv     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
 }

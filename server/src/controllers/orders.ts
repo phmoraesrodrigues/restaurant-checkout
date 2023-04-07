@@ -7,8 +7,17 @@ interface CreateOrderBodyProps extends Order {
 }
 
 export const createOrder = async (req: Request, res: Response) => {
-  const { name, cardNumber, cardExpire, cardCvv, products } =
+  const { name, cardNumber, cardExpire, cardCvv, productsIds } =
     req.body as CreateOrderBodyProps;
+
+  const products = await prismaClient.product.findMany({
+    where: {
+      id: {
+        in: productsIds,
+      },
+    },
+  });
+
   const total = products.reduce((acc, product) => {
     return acc + product.price;
   }, 0);
@@ -20,9 +29,7 @@ export const createOrder = async (req: Request, res: Response) => {
       cardNumber,
       cardExpire,
       cardCvv,
-      products: {
-        create: products,
-      },
+      productsIds,
     },
   });
 
